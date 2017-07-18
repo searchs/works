@@ -35,8 +35,15 @@ public class ContactPage {
     @FindBy(how = How.ID, using = "ctl00_MainContent_rfvEmailAddress")
     public WebElement emailRequiredErrorMessage;
 
+    @FindBy(how = How.ID, using = "ctl00_MainContent_revEmailAddress")
+    public WebElement invalidEmailMessage;
+
     @FindBy(how = How.ID, using = "ctl00_MainContent_rfvMessage")
     public WebElement messageRequiredErrorMessage;
+
+
+    @FindBy(how = How.ID, using="ctl00_MainContent_vsmSummary")
+    public  WebElement errorCorrectionInfo;
 
     public void fillContactsForm(String fullname, String emailAddress, String messageText) {
         userNameField.sendKeys(fullname);

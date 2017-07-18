@@ -7,9 +7,10 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
+        strict = false,
         glue = {"com.qaworks.ola"},
         features = ".",
-        format = {"pretty", "json:target/cucumber-reports/cucumber.json"},
+        format = {"pretty", "json:target/cucumber-reports/cucumber.json","html:target/site/cucumber-pretty" },
         tags = {"@complete", "@sanity"}
 )
 public class AllTests {
