@@ -15,9 +15,16 @@ Feature: Contact Us Page
   Scenario: Invalid Submission - All Details Missing
     Given I am on the QAWorks Site
     And  I am on the QAWorks contacts page
-    When I enter only some details
-      | name    |  |
-      | email   |  |
-      | message |  |
+    When I enter no information and submit form
     Then I should get messages relating to all the missing information
 
+  Scenario: Invalid Submission - Missing Name
+    Given I am on the QAWorks contacts page
+    When I enter only some details
+      | name    |                                                          |
+      | email   | j.Bloggs@qaworks.com                                     |
+      | message | please contact me I want to find out more - Missing name |
+    Then I should get a message related to the missing information
+      | name    |                                                          |
+      | email   | j.Bloggs@qaworks.com                                     |
+      | message | please contact me I want to find out more - Missing name |

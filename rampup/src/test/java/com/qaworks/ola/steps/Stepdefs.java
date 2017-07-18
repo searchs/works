@@ -68,8 +68,15 @@ public class Stepdefs {
 //        throw new PendingException();
 //    }
 
+    @When("^I enter no information and submit form$")
+    public void i_enter_no_informationd_and_submit_form() throws Throwable {
+ ContactPage contactPage = new ContactPage(webDriver);
+ contactPage.submitUserMessage();
+    }
+
+
     @When("^I enter only some details$")
-    public void i_enter_only_some_details(Map<String, String> formDetails) throws Throwable {
+    public void i_enter_only_some_details(Map<String, String > formDetails) throws Throwable {
         this.formDetails = formDetails;
         ContactPage contactPage = new ContactPage(webDriver);
         contactPage.fillContactsForm(formDetails.get("name"),
@@ -77,6 +84,9 @@ public class Stepdefs {
                 formDetails.get("message"));
         contactPage.submitUserMessage();
     }
+
+
+
 
     @Then("^I should get messages relating to all the missing information$")
     public void i_should_get_messages_relating_to_all_the_missing_information() throws Throwable {
@@ -86,6 +96,29 @@ public class Stepdefs {
         Assert.assertTrue("Bug: Message error text is missing in contact form", contactPage.messageRequiredErrorMessage.isDisplayed());
 
     }
+
+
+
+    @Then("^I should get a message related to the missing information$")
+    public void i_should_get_a_message_related_to_the_missing_information(Map<String, String> formDetails) throws Throwable {
+        this.formDetails = formDetails;
+        ContactPage contactPage = new ContactPage(webDriver);
+        if (formDetails.get("name").isEmpty()){
+            Assert.assertTrue("Bug: Missing name error message is not displayed.", contactPage.nameRequiredErrorMessage.isDisplayed());
+        }
+
+        if (formDetails.get("email").isEmpty()){
+            Assert.assertTrue("Bug: Missing email error message is not displayed.", contactPage.emailRequiredErrorMessage.isDisplayed());
+        }
+
+        if (formDetails.get("message").isEmpty()){
+            Assert.assertTrue("Bug: Missing user message error text is not displayed.", contactPage.messageRequiredErrorMessage.isDisplayed());
+        }
+
+
+
+    }
+
 
 
 }
