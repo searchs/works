@@ -114,8 +114,6 @@ public class Stepdefs {
     @Then("^I should get invalid email address error message$")
     public void i_should_get_invalid_email_address_error_message() throws Throwable {
       ContactPage contactPage = new ContactPage(webDriver);
-        WebDriverWait wait = new WebDriverWait(webDriver,5);
-//        WebElement errorMessage = wait.until(ExpectedConditions.textToBePresentInElement(contactPage.errorCorrectionInfo,"Please correct the following errors:"));
       Assert.assertTrue( "Bug:  Invalid email address is being accepted as OK.", contactPage.invalidEmailMessage.isDisplayed());
     Assert.assertEquals("invalid email address", contactPage.invalidEmailMessage.getText().toLowerCase());
     }

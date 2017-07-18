@@ -9,9 +9,9 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
         strict = false,
         glue = {"com.qaworks.ola"},
-        features = ".",
-        format = {"pretty", "json:target/cucumber-reports/cucumber.json","html:target/site/cucumber-pretty" },
-        tags = {"@complete", "@sanity"}
+        features = "src/test/resources/features",
+        format = {"pretty", "json:target/cucumber-reports/cucumber.json","html:target/cucumber-reports/cucumber-pretty" },
+        tags = {"@complete","~@ignore"}
 )
-public class AllTests {
+public class RunCukesTest {
 }
