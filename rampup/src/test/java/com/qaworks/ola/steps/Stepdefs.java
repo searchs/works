@@ -12,6 +12,9 @@ import org.openqa.selenium.WebDriver;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.Given;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Map;
 
@@ -43,7 +46,7 @@ public class Stepdefs {
         contactPage.fillContactsForm(formDetails.get("name"),
                 formDetails.get("email"),
                 formDetails.get("message"));
-//        contactPage.submitUserMessage(); TODO
+        contactPage.submitUserMessage();
 
         try {
 
@@ -58,15 +61,6 @@ public class Stepdefs {
 
     }
 
-
-//        @Then("^I should be able to contact QAWorks with the following information$")
-//        public void i_should_be_able_to_contact_QAWorks_with_the_following_information(DataTable arg1) throws Throwable {
-//        // Write code here that turns the phrase above into concrete actions
-//        // For automatic transformation, change DataTable to one of
-//        // List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
-//        // E,K,V must be a scalar (String, Integer, Date, enum etc)
-//        throw new PendingException();
-//    }
 
     @When("^I enter no information and submit form$")
     public void i_enter_no_informationd_and_submit_form() throws Throwable {
@@ -115,9 +109,17 @@ public class Stepdefs {
             Assert.assertTrue("Bug: Missing user message error text is not displayed.", contactPage.messageRequiredErrorMessage.isDisplayed());
         }
 
-
-
     }
+
+    @Then("^I should get invalid email address error message$")
+    public void i_should_get_invalid_email_address_error_message() throws Throwable {
+      ContactPage contactPage = new ContactPage(webDriver);
+        WebDriverWait wait = new WebDriverWait(webDriver,5);
+//        WebElement errorMessage = wait.until(ExpectedConditions.textToBePresentInElement(contactPage.errorCorrectionInfo,"Please correct the following errors:"));
+      Assert.assertTrue( "Bug:  Invalid email address is being accepted as OK.", contactPage.invalidEmailMessage.isDisplayed());
+    Assert.assertEquals("invalid email address", contactPage.invalidEmailMessage.getText().toLowerCase());
+    }
+//BUG Found(Firefox 54.0/64bit on Linux Mint 18):  Stack Trace displayed when email supplied is just domain name
 
 
 
