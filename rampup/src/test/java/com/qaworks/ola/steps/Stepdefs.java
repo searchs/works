@@ -6,6 +6,7 @@ import com.qaworks.ola.pages.ContactPage;
 import com.qaworks.ola.pages.Homepage;
 import cucumber.api.DataTable;
 import cucumber.api.PendingException;
+import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
@@ -42,7 +43,7 @@ public class Stepdefs {
         contactPage.fillContactsForm(formDetails.get("name"),
                 formDetails.get("email"),
                 formDetails.get("message"));
-        contactPage.submitUserMessage();
+//        contactPage.submitUserMessage(); TODO
 
         try {
 
@@ -58,9 +59,33 @@ public class Stepdefs {
     }
 
 
+//        @Then("^I should be able to contact QAWorks with the following information$")
+//        public void i_should_be_able_to_contact_QAWorks_with_the_following_information(DataTable arg1) throws Throwable {
+//        // Write code here that turns the phrase above into concrete actions
+//        // For automatic transformation, change DataTable to one of
+//        // List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
+//        // E,K,V must be a scalar (String, Integer, Date, enum etc)
+//        throw new PendingException();
+//    }
 
+    @When("^I enter only some details$")
+    public void i_enter_only_some_details(Map<String, String> formDetails) throws Throwable {
+        this.formDetails = formDetails;
+        ContactPage contactPage = new ContactPage(webDriver);
+        contactPage.fillContactsForm(formDetails.get("name"),
+                formDetails.get("email"),
+                formDetails.get("message"));
+        contactPage.submitUserMessage();
+    }
 
+    @Then("^I should get messages relating to all the missing information$")
+    public void i_should_get_messages_relating_to_all_the_missing_information() throws Throwable {
+        ContactPage contactPage = new ContactPage(webDriver);
+        Assert.assertTrue("Bug: Name error message is missing in contact form", contactPage.nameRequiredErrorMessage.isDisplayed());
+        Assert.assertTrue("Bug: Email error message is missing in contact form", contactPage.emailRequiredErrorMessage.isDisplayed());
+        Assert.assertTrue("Bug: Message error text is missing in contact form", contactPage.messageRequiredErrorMessage.isDisplayed());
 
+    }
 
 
 }

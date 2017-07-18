@@ -12,3 +12,12 @@ Feature: Contact Us Page
       | email   | j.Bloggs@qaworks.com                      |
       | message | please contact me I want to find out more |
 
+  Scenario: Invalid Submission - All Details Missing
+    Given I am on the QAWorks Site
+    And  I am on the QAWorks contacts page
+    When I enter only some details
+      | name    |  |
+      | email   |  |
+      | message |  |
+    Then I should get messages relating to all the missing information
+
