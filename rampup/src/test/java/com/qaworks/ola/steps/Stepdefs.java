@@ -115,9 +115,11 @@ public class Stepdefs {
             Assert.assertTrue("Bug: Missing user message error text is not displayed.", contactPage.messageRequiredErrorMessage.isDisplayed());
         }
 
-
-
     }
+
+
+
+
 
 
 

@@ -28,3 +28,16 @@ Feature: Contact Us Page
       | name    |                                                          |
       | email   | j.Bloggs@qaworks.com                                     |
       | message | please contact me I want to find out more - Missing name |
+
+
+
+  Scenario: Invalid Submission - Missing Email
+    Given I am on the QAWorks contacts page
+    When I enter only some details
+      | name    | j.Bloggs                                                |
+      | email   |                                                         |
+      | message | please contact me I want to find out more Missing email |
+    Then I should get a message related to the missing information
+      | name    | j.Bloggs                                                |
+      | email   |                                                         |
+      | message | please contact me I want to find out more Missing email |
