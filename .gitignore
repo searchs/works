@@ -87,6 +87,7 @@ local.properties
 .idea/**/workspace.xml
 .idea
 *.iml
+rampup.iml
 
 .idea/**/tasks.xml
 .idea/dictionaries

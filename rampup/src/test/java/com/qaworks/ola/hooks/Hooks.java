@@ -11,6 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Hooks {
@@ -24,11 +25,6 @@ public class Hooks {
 
     @Before
     public void openWebSite() {
-//        Map<String, Object> chromeOptions = new Map<String,Object>();
-//        chromeOptions.put("binary", "/usr/lib/chromium-browser/chromium-browser");
-//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-//        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-//        WebDriver driver = new ChromeDriver(capabilities);
         driver.navigate().to("http://www.qaworks.com");
     }
 
