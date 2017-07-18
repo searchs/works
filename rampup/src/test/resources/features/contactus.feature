@@ -41,3 +41,14 @@ Feature: Contact Us Page
       | name    | j.Bloggs                                                |
       | email   |                                                         |
       | message | please contact me I want to find out more Missing email |
+
+  Scenario: Invalid Submission - Missing Message
+    Given I am on the QAWorks contacts page
+    When I enter only some details
+      | name    | j.Bloggs Missing Message |
+      | email   | j.Bloggs@qaworks.com     |
+      | message |                          |
+    Then I should get a message related to the missing information
+      | name    | j.Bloggs Missing Message |
+      | email   | j.Bloggs@qaworks.com     |
+      | message |                          |
