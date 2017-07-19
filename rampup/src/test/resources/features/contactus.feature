@@ -76,7 +76,7 @@ Feature: Contact Us Page
       | message | please contact me I want to find out more Missing at sign email |
     Then I should get invalid email address error message
 
-
+@firefox
   Scenario: Invalid Submission - Invalid Email Format Missing at TLD
     When I enter only some details
       | name    | j.Bloggs Missing Message                                        |
@@ -107,9 +107,12 @@ Feature: Contact Us Page
       | message | please contact me I want to find out more - Missing name |
     Then I should get error message indicating field requires alphanumeric values
 
-  @wip
+
   Scenario: XSS Attack Invalid Submission - Script tags Name Field
     When I enter only some details
+      | name    | <script>alert('Name field. Never! ') </script>                  |
+      | email   | j.Bloggsqaworks.com                                             |
+      | message | please contact me I want to find out more Missing at sign email |
     Then I should get a message related to the missing information
       | name    | <script>alert('Name field. Never! ') </script>                  |
       | email   | j.Bloggsqaworks.com                                             |
