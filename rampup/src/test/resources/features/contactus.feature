@@ -70,4 +70,63 @@ Feature: Contact Us Page
     Then I should get invalid email address error message
 
 
+  @wip
+  Scenario: Invalid Submission - Invalid Email dot at the end
+    When I enter only some details
+      | name    | j.Bloggs Missing Message                                        |
+      | email   | j.Bloggs@qaworks.                                               |
+      | message | please contact me I want to find out more Missing at sign email |
+    Then I should get invalid email address error message
+
+  @wip
+  Scenario: Invalid Submission - Invalid Email Format Missing at TLD
+    When I enter only some details
+    Then I should get a message related to the missing information
+      | name    | j.Bloggs Missing Message                                        |
+      | email   | j.Bloggs@qaworks                                                |
+      | message | please contact me I want to find out more Missing at sign email |
+
+  @wip
+  Scenario: Invalid Submission - Field Boundaries
+    When I enter values exceeding field limits
+      | name    |                                                          |
+      | email   | j.Bloggs@qaworks.com                                     |
+      | message | please contact me I want to find out more - Missing name |
+    Then I should get error message indicating field limits
+      | name    |                                                          |
+      | email   | j.Bloggs@qaworks.com                                     |
+      | message | please contact me I want to find out more - Missing name |
+
+  @wip
+  Scenario: Invalid Submission - Names cannot be Numbers only
+    When I enter numbers as user name
+      | name    | 12344567                                                 |
+      | email   | j.Bloggs@qaworks.com                                     |
+      | message | please contact me I want to find out more - Missing name |
+    Then I should get error message indicating field requires alphanumeric values
+
+  @wip
+  Scenario: XSS Attack Invalid Submission - Script tags Name Field
+    When I enter only some details
+    Then I should get a message related to the missing information
+      | name    | <script>alert('Name field. Never! ') </script>                  |
+      | email   | j.Bloggsqaworks.com                                             |
+      | message | please contact me I want to find out more Missing at sign email |
+
+  @wip
+  Scenario: XSS Attack Invalid Submission - Script tags Email Field
+    When I enter only some details
+    Then I should get a message related to the missing information
+      | name    | j.Bloggs Missing Message                                        |
+      | email   | <script>alert('Email field. Never! ') </script>                 |
+      | message | please contact me I want to find out more Missing at sign email |
+
+  @wip
+  Scenario: XSS Attack Invalid Submission - Script tags Message Field
+    When I enter only some details
+    Then I should get a message related to the missing information
+      | name    | j.Bloggs Missing Message                          |
+      | email   | j.Bloggsqaworks.com                               |
+      | message | <script>alert('Message field. Never! ') </script> |
+
 

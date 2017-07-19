@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
         glue = {"com.qaworks.ola"},
         features = "src/test/resources/features",
         format = {"pretty", "json:target/cucumber-reports/cucumber.json","html:target/cucumber-reports/cucumber-pretty" },
-        tags = {"@complete","~@ignore"}
+        tags = {"@complete","~@ignore", "~@wip"}
 )
 public class RunCukesTest {
 }
