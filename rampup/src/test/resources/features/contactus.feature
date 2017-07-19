@@ -11,7 +11,6 @@ Feature: Contact Us Page
 
   @ignore
   Scenario: Valid Submission
-
     Then I should be able to contact QAWorks with the following information
       | name    | j.Bloggs                                  |
       | email   | j.Bloggs@qaworks.com                      |
@@ -30,7 +29,6 @@ Feature: Contact Us Page
       | name    |                                                          |
       | email   | j.Bloggs@qaworks.com                                     |
       | message | please contact me I want to find out more - Missing name |
-
 
   Scenario: Invalid Submission - Missing Email
     When I enter only some details
@@ -70,7 +68,7 @@ Feature: Contact Us Page
     Then I should get invalid email address error message
 
 
-  @wip
+
   Scenario: Invalid Submission - Invalid Email dot at the end
     When I enter only some details
       | name    | j.Bloggs Missing Message                                        |
@@ -78,9 +76,13 @@ Feature: Contact Us Page
       | message | please contact me I want to find out more Missing at sign email |
     Then I should get invalid email address error message
 
-  @wip
+
   Scenario: Invalid Submission - Invalid Email Format Missing at TLD
     When I enter only some details
+      | name    | j.Bloggs Missing Message                                        |
+      | email   | j.Bloggs@qaworks                                                |
+      | message | please contact me I want to find out more Missing at sign email |
+
     Then I should get a message related to the missing information
       | name    | j.Bloggs Missing Message                                        |
       | email   | j.Bloggs@qaworks                                                |
