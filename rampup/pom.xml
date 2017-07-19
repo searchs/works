@@ -7,7 +7,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <failsafe.fork.count>1</failsafe.fork.count>
+        <failsafe.fork.count>5</failsafe.fork.count>
         <java.version>1.8</java.version>
         <maven.build.timestamp.format>yyyy-MM-dd-HHmm</maven.build.timestamp.format>
         <encoding>UTF-8</encoding>
@@ -17,6 +17,7 @@
         <archetype.encoding>${encoding}</archetype.encoding>
         <cucumber.version>1.2.5</cucumber.version>
         <selenium.version>3.0.1</selenium.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <build>
@@ -36,7 +37,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>2.20</version>
                 <configuration>
                     <skipTests>false</skipTests>
                 </configuration>
@@ -50,6 +51,8 @@
                 <configuration>
                     <forkCount>${failsafe.fork.count}</forkCount>
                     <reuseForks>false</reuseForks>
+                    <parallel>all</parallel>
+                    <threadCount>4</threadCount>
                     <includes>
                         <include>${classes}</include>
                     </includes>
@@ -99,28 +102,28 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>2.0.0</version>
-                <executions>
-                    <execution>
-                        <id>execution</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <projectName>QAWorks Rampup</projectName>
-                            <outputDirectory>${project.build.directory}/cucumber-reports/cucuber-pretty</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/cucumber-reports/cucumber.json</cucumberOutput>
-                            <skippedFails>true</skippedFails>
-                            <!--<enableFlashCharts>false</enableFlashCharts>-->
-                            <buildNumber>42</buildNumber>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>net.masterthought</groupId>-->
+                <!--<artifactId>maven-cucumber-reporting</artifactId>-->
+                <!--<version>2.0.0</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>execution</id>-->
+                        <!--<phase>verify</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>generate</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<projectName>QAWorks Rampup</projectName>-->
+                            <!--<outputDirectory>${project.build.directory}/cucumber-reports/cucuber-pretty</outputDirectory>-->
+                            <!--<cucumberOutput>${project.build.directory}/cucumber-reports/cucumber.json</cucumberOutput>-->
+                            <!--<skippedFails>true</skippedFails>-->
+                            <!--&lt;!&ndash;<enableFlashCharts>false</enableFlashCharts>&ndash;&gt;-->
+                            <!--<buildNumber>42</buildNumber>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 
@@ -188,14 +191,14 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>net.masterthought</groupId>-->
-            <!--<artifactId>cucumber-reporting</artifactId>-->
-            <!--<version>3.9.0</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>3.9.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -206,7 +209,7 @@
             </activation>
             <properties>
                 <failsafe.fork.count>1</failsafe.fork.count>
-                <classes>**/AllTests.java</classes>
+                <classes>**/RunCukesTest.java</classes>
             </properties>
         </profile>
         <profile>
