@@ -96,7 +96,6 @@ public class Stepdefs {
     @Then("^I should get a message related to the missing information$")
     public void i_should_get_a_message_related_to_the_missing_information(Map<String, String> formDetails) throws Throwable {
         this.formDetails = formDetails;
-        Thread.sleep(5000);
         ContactPage contactPage = new ContactPage(webDriver);
         if (formDetails.get("name").isEmpty()) {
             Assert.assertTrue("Bug: Missing name error message is not displayed.", contactPage.nameRequiredErrorMessage.isDisplayed());

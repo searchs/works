@@ -68,7 +68,6 @@ Feature: Contact Us Page
     Then I should get invalid email address error message
 
 
-
   Scenario: Invalid Submission - Invalid Email dot at the end
     When I enter only some details
       | name    | j.Bloggs Missing Message                                        |
@@ -76,7 +75,7 @@ Feature: Contact Us Page
       | message | please contact me I want to find out more Missing at sign email |
     Then I should get invalid email address error message
 
-@firefox
+  @firefox
   Scenario: Invalid Submission - Invalid Email Format Missing at TLD
     When I enter only some details
       | name    | j.Bloggs Missing Message                                        |
