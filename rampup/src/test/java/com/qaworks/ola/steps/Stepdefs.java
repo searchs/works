@@ -2,6 +2,7 @@ package com.qaworks.ola.steps;
 
 import javax.inject.Inject;
 
+import com.qaworks.ola.pages.ContactMessage;
 import com.qaworks.ola.pages.ContactPage;
 import com.qaworks.ola.pages.Homepage;
 import cucumber.api.DataTable;
@@ -16,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -26,6 +28,7 @@ public class Stepdefs {
     private WebDriver webDriver;
 
     private Map<String, String> formDetails;
+    private List<ContactMessage> contactDetails;
 
     @Given("^I am on the QAWorks Site$")
     public void i_am_on_the_QAWorks_Site() throws Throwable {
@@ -64,13 +67,13 @@ public class Stepdefs {
 
     @When("^I enter no information and submit form$")
     public void i_enter_no_informationd_and_submit_form() throws Throwable {
- ContactPage contactPage = new ContactPage(webDriver);
- contactPage.submitUserMessage();
+        ContactPage contactPage = new ContactPage(webDriver);
+        contactPage.submitUserMessage();
     }
 
 
     @When("^I enter only some details$")
-    public void i_enter_only_some_details(Map<String, String > formDetails) throws Throwable {
+    public void i_enter_only_some_details(Map<String, String> formDetails) throws Throwable {
         this.formDetails = formDetails;
         ContactPage contactPage = new ContactPage(webDriver);
         contactPage.fillContactsForm(formDetails.get("name"),
@@ -78,8 +81,6 @@ public class Stepdefs {
                 formDetails.get("message"));
         contactPage.submitUserMessage();
     }
-
-
 
 
     @Then("^I should get messages relating to all the missing information$")
@@ -92,20 +93,19 @@ public class Stepdefs {
     }
 
 
-
     @Then("^I should get a message related to the missing information$")
     public void i_should_get_a_message_related_to_the_missing_information(Map<String, String> formDetails) throws Throwable {
         this.formDetails = formDetails;
         ContactPage contactPage = new ContactPage(webDriver);
-        if (formDetails.get("name").isEmpty()){
+        if (formDetails.get("name").isEmpty()) {
             Assert.assertTrue("Bug: Missing name error message is not displayed.", contactPage.nameRequiredErrorMessage.isDisplayed());
         }
 
-        if (formDetails.get("email").isEmpty()){
+        if (formDetails.get("email").isEmpty()) {
             Assert.assertTrue("Bug: Missing email error message is not displayed.", contactPage.emailRequiredErrorMessage.isDisplayed());
         }
 
-        if (formDetails.get("message").isEmpty()){
+        if (formDetails.get("message").isEmpty()) {
             Assert.assertTrue("Bug: Missing user message error text is not displayed.", contactPage.messageRequiredErrorMessage.isDisplayed());
         }
 
@@ -113,12 +113,10 @@ public class Stepdefs {
 
     @Then("^I should get invalid email address error message$")
     public void i_should_get_invalid_email_address_error_message() throws Throwable {
-      ContactPage contactPage = new ContactPage(webDriver);
-      Assert.assertTrue( "Bug:  Invalid email address is being accepted as OK.", contactPage.invalidEmailMessage.isDisplayed());
-    Assert.assertEquals("invalid email address", contactPage.invalidEmailMessage.getText().toLowerCase());
+        ContactPage contactPage = new ContactPage(webDriver);
+        Assert.assertTrue("Bug:  Invalid email address is being accepted as OK.", contactPage.invalidEmailMessage.isDisplayed());
+        Assert.assertEquals("invalid email address", contactPage.invalidEmailMessage.getText().toLowerCase());
     }
 //BUG Found(Firefox 54.0/64bit on Linux Mint 18):  Stack Trace displayed when email supplied is just domain name
-
-
 
 }
