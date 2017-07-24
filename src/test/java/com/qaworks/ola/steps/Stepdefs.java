@@ -30,6 +30,8 @@ public class Stepdefs {
     private Map<String, String> formDetails;
     private List<ContactMessage> contactDetails;
 
+    private WebDriverWait fWait = null;
+
     @Given("^I am on the QAWorks Site$")
     public void i_am_on_the_QAWorks_Site() throws Throwable {
         Homepage homepage = new Homepage(webDriver);
@@ -86,6 +88,7 @@ public class Stepdefs {
     @Then("^I should get messages relating to all the missing information$")
     public void i_should_get_messages_relating_to_all_the_missing_information() throws Throwable {
         ContactPage contactPage = new ContactPage(webDriver);
+        fWait = new WebDriverWait(webDriver,10);
         Assert.assertTrue("Bug: Name error message is missing in contact form", contactPage.nameRequiredErrorMessage.isDisplayed());
         Assert.assertTrue("Bug: Email error message is missing in contact form", contactPage.emailRequiredErrorMessage.isDisplayed());
         Assert.assertTrue("Bug: Message error text is missing in contact form", contactPage.messageRequiredErrorMessage.isDisplayed());
@@ -96,6 +99,7 @@ public class Stepdefs {
     @Then("^I should get a message related to the missing information$")
     public void i_should_get_a_message_related_to_the_missing_information(Map<String, String> formDetails) throws Throwable {
         this.formDetails = formDetails;
+        fWait = new WebDriverWait(webDriver,10);
         ContactPage contactPage = new ContactPage(webDriver);
         if (formDetails.get("name").isEmpty()) {
             Assert.assertTrue("Bug: Missing name error message is not displayed.", contactPage.nameRequiredErrorMessage.isDisplayed());
